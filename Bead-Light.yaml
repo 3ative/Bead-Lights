@@ -1,0 +1,109 @@
+substitutions:
+  name: YOUR NAME HERE
+
+esphome:
+  name: "YOUR DEVICE NAME"
+  platform: esp8266
+  board: d1_mini
+
+logger:
+  logs:
+    light: none
+
+api:
+ota:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+number:
+  - platform: template
+    name: $name Lantern
+    id: master_light
+    optimistic: True
+    min_value: 0
+    max_value: 100
+    initial_value: 0
+    step: 1
+    on_value:
+      then:
+        - lambda: !lambda |
+            auto call1 = id(beads1).turn_off();
+            auto call2 = id(beads2).turn_off();
+            auto call3 = id(beads3).turn_off();
+
+            if (id(master_light).state != 0) {
+              call1 = id(beads1).turn_on().set_effect("Random40");
+              call2 = id(beads2).turn_on().set_effect("Random40");
+              call3 = id(beads3).turn_on().set_effect("Random40");
+            }
+            call1.perform();
+            call2.perform();
+            call3.perform();
+
+light:
+  - platform: monochromatic
+    id: beads1
+    output: beads1PWM
+    effects:
+      - lambda:
+          name: Random40
+          update_interval: 2.0s
+          lambda: |-
+            auto sliderValue = constrain(id(master_light).state, 8, 60);
+            auto brightness = sliderValue + (random_float() * 40);
+
+            auto call = id(beads1).turn_on();
+            call.set_transition_length(1000 + (random_float() * 1500));
+            call.set_brightness(brightness / 100);
+            call.perform();
+
+
+  - platform: monochromatic
+    id: beads2
+    output: beads2PWM
+    effects:
+      - lambda:
+          name: Random40
+          update_interval: 2.1s
+          lambda: |-
+            auto sliderValue = constrain(id(master_light).state, 8.0, 60.0);
+            auto brightness = sliderValue + (random_float() * 40.0);
+
+            auto call = id(beads2).turn_on();
+            call.set_transition_length(1000 + (random_float() * 1500));
+            call.set_brightness(brightness / 100);
+            call.perform();
+
+  - platform: monochromatic
+    id: beads3
+    output: beads3PWM
+    effects:
+      - lambda:
+          name: Random40
+          update_interval: 2.2s
+          lambda: |-
+            auto sliderValue = constrain(id(master_light).state, 8.0, 60.0);
+            auto brightness = sliderValue + (random_float() * 40.0);
+
+            auto call = id(beads3).turn_on();
+            call.set_transition_length(1000 + (random_float() * 1500));
+            call.set_brightness(brightness / 100);
+            call.perform();
+
+output:
+  - platform: esp8266_pwm
+    id: beads1PWM
+    frequency: 3000
+    pin: D5
+
+  - platform: esp8266_pwm
+    id: beads2PWM
+    frequency: 3000
+    pin: D6
+
+  - platform: esp8266_pwm
+    id: beads3PWM
+    frequency: 3000
+    pin: D7
