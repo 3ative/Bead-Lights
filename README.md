@@ -3,7 +3,7 @@ Project for random fading Multi-LED strings.
 
 
 #### *Code-y Bits*
-- ESPHome Code: [ultimate-fan-project-V3.yaml](https://github.com/3ative/ultimate-fan-project-V3/blob/main/ultimate-fan-project-V3.yaml)
+- ESPHome Code: [Bead-Lights.yaml](https://github.com/3ative/Bead-Lights/blob/main/Bead-Light.yaml)
 
 #### YouTube tutorial: [Ultimate Fan Project v3.1](https://youtu.be/_XgJyYwlejo)
 
