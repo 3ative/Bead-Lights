@@ -1,8 +1,8 @@
 substitutions:
-  name: YOUR NAME HERE # Name of the "Slider" 
+  name: YOUR NAME HERE
 
 esphome:
-  name: "YOUR DEVICE NAME" # Use the same mane you called the YAML File
+  name: "YOUR DEVICE NAME"
   platform: esp8266
   board: d1_mini
 
@@ -59,7 +59,6 @@ light:
             call.set_brightness(brightness / 100);
             call.perform();
 
-
   - platform: monochromatic
     id: beads2
     output: beads2PWM
@@ -92,7 +91,6 @@ light:
             call.set_brightness(brightness / 100);
             call.perform();
 
-# PWMs used for each of the "Light:"
 output:
   - platform: esp8266_pwm
     id: beads1PWM
