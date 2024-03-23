@@ -1,4 +1,4 @@
-# Bead Lights Tutorial
+# Bead Lights
 Project for random fading Multi-LED strings.
 
 
