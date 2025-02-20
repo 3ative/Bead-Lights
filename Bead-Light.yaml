@@ -3,7 +3,8 @@ substitutions:
 
 esphome:
   name: "YOUR DEVICE NAME"
-  platform: esp8266
+
+esp8266:
   board: d1_mini
 
 logger:
